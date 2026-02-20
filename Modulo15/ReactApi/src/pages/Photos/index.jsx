@@ -2,12 +2,12 @@ import { Container } from '../../styles/GlobalStyles';
 
 import { Title } from './styled';
 
-const Login = () => {
+const Photos = () => {
   return (
     <Container>
-      <Title>Login</Title>
+      <Title>Photos</Title>
     </Container>
   );
 };
 
-export default Login;
+export default Photos;
