@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
 
     case types.REGISTER_UPDATED_SUCESS: {
       const newState = { ...state };
-      newState.user.nome = action.payload.nome;
+      newState.user.name = action.payload.name;
       newState.user.email = action.payload.email;
       newState.isLoading = false;
       return newState;

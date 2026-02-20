@@ -2,6 +2,7 @@ import { Provider } from 'react-redux';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import Header from './components/Header';
 import AppRoutes from './routes';

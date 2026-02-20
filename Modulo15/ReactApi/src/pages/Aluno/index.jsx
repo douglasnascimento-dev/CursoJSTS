@@ -3,18 +3,25 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { FiUser } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { isEmail, isInt, isFloat } from 'validator';
 
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
-import { Container, Title, Form } from '../../styles/GlobalStyles';
+import {
+  Container,
+  Title,
+  Form,
+  ProfilePicture,
+  Button,
+  Label,
+  Input,
+  LinkButton,
+} from '../../styles/GlobalStyles';
 
-import { ProfilePicture } from './styled';
-
-export function validateAluno(name, sobrenome, email, idade, peso, altura) {
+export function validateAluno(name, surname, email, age, weight, height) {
   let formErrors = false;
 
   if (name.length < 3 || name.length >= 255) {
@@ -22,7 +29,7 @@ export function validateAluno(name, sobrenome, email, idade, peso, altura) {
     toast.error('O Nome deve ter entre 3 e 255 caracteres');
   }
 
-  if (sobrenome.length < 3 || sobrenome.length >= 255) {
+  if (surname.length < 3 || surname.length >= 255) {
     formErrors = true;
     toast.error('O Sobrenome deve ter entre 3 e 255 caracteres');
   }
@@ -32,17 +39,17 @@ export function validateAluno(name, sobrenome, email, idade, peso, altura) {
     toast.error('O Email deve ser válido');
   }
 
-  if (!isInt(String(idade))) {
+  if (!isInt(String(age))) {
     formErrors = true;
     toast.error('A Idade deve ser um número inteiro');
   }
 
-  if (!isFloat(String(peso))) {
+  if (!isFloat(String(weight))) {
     formErrors = true;
     toast.error('O Peso deve ser um número');
   }
 
-  if (!isFloat(String(altura))) {
+  if (!isFloat(String(height))) {
     formErrors = true;
     toast.error('A Altura deve ser um número');
   }
@@ -57,11 +64,11 @@ const Aluno = () => {
   const id = idParam ? String(idParam).replace(/^:/, '') : 0;
 
   const [name, setName] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
+  const [surname, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
-  const [idade, setIdade] = useState('');
-  const [peso, setPeso] = useState('');
-  const [altura, setAltura] = useState('');
+  const [age, setIdade] = useState('');
+  const [weight, setPeso] = useState('');
+  const [height, setAltura] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [photo, setPhoto] = useState('');
 
@@ -71,14 +78,14 @@ const Aluno = () => {
     async function getData() {
       try {
         setIsLoading(true);
-        const { data } = await axios.get(`/alunos/${id}`);
-        setPhoto(get(data, 'Uploads[0].url', ''));
-        setName(data.name);
-        setSobrenome(data.sobrenome);
-        setEmail(data.email);
-        setIdade(data.idade);
-        setPeso(data.peso);
-        setAltura(data.altura);
+        const { data } = await axios.get(`/students/${id}`);
+        setPhoto(get(data, 'photos[0].url', ''));
+        setName(data.name || '');
+        setSobrenome(data.surname || '');
+        setEmail(data.email || '');
+        setIdade(data.age || '');
+        setPeso(data.weight || '');
+        setAltura(data.height || '');
       } catch (err) {
         const status = get(err, 'response.status', 0);
         const erros = get(err, 'response.data.errors', []);
@@ -98,28 +105,28 @@ const Aluno = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateAluno(name, sobrenome, email, idade, peso, altura)) return;
+    if (validateAluno(name, surname, email, age, weight, height)) return;
 
     try {
       setIsLoading(true);
       if (id) {
-        await axios.put(`/alunos/${id}`, {
+        await axios.put(`/students/${id}`, {
           name,
-          sobrenome,
+          surname,
           email,
-          idade,
-          peso,
-          altura,
+          age,
+          weight,
+          height,
         });
         toast.success('Aluno editado com sucesso.');
       } else {
-        await axios.post(`/alunos`, {
+        await axios.post(`/students`, {
           name,
-          sobrenome,
+          surname,
           email,
-          idade,
-          peso,
-          altura,
+          age,
+          weight,
+          height,
         });
         toast.success('Aluno criado com sucesso.');
         navigate('/');
@@ -143,78 +150,72 @@ const Aluno = () => {
     <Container>
       <Loading isLoading={isLoading} />
       <Title>{id ? 'Editar' : 'Adicionar'} Aluno </Title>
-      {id && (
-        <ProfilePicture>
-          {photo ? (
-            <img alt='Foto de Perfil' src={photo} />
-          ) : (
-            <FiUser size={150} />
-          )}
-          <Link to={`/photos/${id}`}>Alterar Img</Link>
-        </ProfilePicture>
-      )}{' '}
+      <ProfilePicture style={{ alignSelf: 'center' }}>
+        {photo ? (
+          <img alt='Foto de Perfil' src={photo} />
+        ) : (
+          <FiUser className='userIcon' size={36} />
+        )}
+      </ProfilePicture>
+      <LinkButton style={{ alignSelf: 'center' }} to={`/photos/${id}`}>
+        Alterar Img
+      </LinkButton>
       <Form onSubmit={handleSubmit}>
-        <label htmlFor='name'>
-          Nome:
-          <input
-            aria-label='Nome'
-            id='name'
-            type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label htmlFor='sobrenome'>
-          Sobrenome:
-          <input
-            aria-label='Sobrenome'
-            id='sobrenome'
-            type='text'
-            value={sobrenome}
-            onChange={(e) => setSobrenome(e.target.value)}
-          />
-        </label>
-        <label htmlFor='email'>
-          Email:
-          <input
-            aria-label='Email'
-            id='email'
-            type='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label htmlFor='idade'>
-          Idade:
-          <input
-            aria-label='Idade'
-            id='idade'
-            type='number'
-            value={idade}
-            onChange={(e) => setIdade(e.target.value)}
-          />
-        </label>
-        <label htmlFor='peso'>
-          Peso:
-          <input
-            aria-label='Peso'
-            id='peso'
-            type='number'
-            value={peso}
-            onChange={(e) => setPeso(e.target.value)}
-          />
-        </label>
-        <label htmlFor='altura'>
-          Altura:
-          <input
-            aria-label='Altura'
-            id='altura'
-            type='number'
-            value={altura}
-            onChange={(e) => setAltura(e.target.value)}
-          />
-        </label>
-        <button type='submit'>{id ? 'Salvar' : 'Adicionar'} Aluno</button>
+        <Label htmlFor='name'>Nome:</Label>
+        <Input
+          aria-label='Nome'
+          id='name'
+          placeholder='Nome do Aluno'
+          type='text'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Label htmlFor='surname'>Sobrenome:</Label>
+        <Input
+          aria-label='Sobrenome'
+          id='surname'
+          placeholder='Sobrenome do Aluno'
+          type='text'
+          value={surname}
+          onChange={(e) => setSobrenome(e.target.value)}
+        />
+        <Label htmlFor='email'>Email:</Label>
+        <Input
+          aria-label='Email'
+          id='email'
+          placeholder='email@exmplo.com.br'
+          type='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Label htmlFor='age'>Idade:</Label>
+        <Input
+          aria-label='Idade'
+          id='age'
+          placeholder='Idade do Aluno (em anos)'
+          type='number'
+          value={age}
+          onChange={(e) => setIdade(e.target.value)}
+        />
+        <Label htmlFor='weight'>Peso:</Label>
+        <Input
+          aria-label='Peso'
+          id='weight'
+          placeholder='Peso do Aluno (em KGs - com casa decimal)'
+          type='number'
+          value={weight}
+          onChange={(e) => setPeso(e.target.value)}
+        />
+        <Label htmlFor='height'>Altura:</Label>
+        <Input
+          aria-label='Altura'
+          id='height'
+          placeholder='Altura do Aluno (em metros - com casa decimal)'
+          type='number'
+          value={height}
+          onChange={(e) => setAltura(e.target.value)}
+        />
+        <Button type='submit'>{id ? 'Salvar' : 'Adicionar'} Aluno</Button>
       </Form>
     </Container>
   );

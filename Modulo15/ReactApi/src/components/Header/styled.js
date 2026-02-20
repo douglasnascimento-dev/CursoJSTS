@@ -3,10 +3,10 @@ import colors from '../../constants/colors';
 
 export const Nav = styled.nav`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: space-between;
   background-color: white;
-  padding: 20px;
+  padding: 20px 20px;
   color: ${colors.primaryColor};
 
   a {
@@ -17,6 +17,14 @@ export const Nav = styled.nav`
     &:hover {
       font-weight: 800;
     }
+  }
+
+  .home {
+    background: ${colors.secondGradient};
+    color: white;
+    padding: 10px 30px;
+    border-radius: 20px;
+    margin-right: auto; 
   }
  
   .userName {

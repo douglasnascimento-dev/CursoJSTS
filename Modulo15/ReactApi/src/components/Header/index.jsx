@@ -21,20 +21,29 @@ const Header = () => {
 
   return (
     <Nav>
-      <Link to='/'>Home</Link>
-      {isLoggedIn ? (
-        // Show user name and link to profile (todo: update route)
-        <Link className='userName' to='/register'>
-          {userName}
+      <span>
+        <Link className='home' to='/'>
+          HomePage
         </Link>
-      ) : (
-        <Link to='/login'>Fazer Login</Link>
-      )}
-      {isLoggedIn && (
-        <Link to='/logout' onClick={handleLogout}>
-          Sair da Conta
-        </Link>
-      )}
+        <Link to='/alunos'>Alunos</Link>
+      </span>
+      <span>
+        {isLoggedIn ? (
+          <Link className='userName' to='/edit'>
+            {userName}
+          </Link>
+        ) : (
+          <>
+            <Link to='/login'>Fazer Login</Link>
+            <Link to='/register'>Registrar</Link>
+          </>
+        )}
+        {isLoggedIn && (
+          <Link to='/logout' onClick={handleLogout}>
+            Sair da Conta
+          </Link>
+        )}
+      </span>
     </Nav>
   );
 };

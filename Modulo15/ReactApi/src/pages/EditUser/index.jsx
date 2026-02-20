@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { isEmail } from 'validator';
 
 import Loading from '../../components/Loading';
 import * as actions from '../../store/modules/auth/actions';
@@ -14,24 +13,18 @@ import {
   Button,
 } from '../../styles/GlobalStyles';
 
-const Register = () => {
-  const {
-    id,
-    name: nameStorage,
-    email: emailStorage,
-  } = useSelector((state) => state.auth.user);
+const EditUser = () => {
+  const { id, name: nameStorage } = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setSenha] = useState('');
   const isLoading = useSelector((state) => state.auth.isLoading);
 
   useEffect(() => {
     if (!id) return;
     setName(nameStorage);
-    setEmail(emailStorage);
-  }, [id, nameStorage, emailStorage]);
+  }, [id, nameStorage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,28 +32,23 @@ const Register = () => {
     let formErrors = 0;
 
     if (name.length < 3 || name.length > 255) {
-      formErrors = 1;
+      formErrors++;
       toast.error('O Nome deve ter entre 3 e 255 caracteres');
     }
 
-    if (!isEmail(email)) {
-      formErrors = 1;
-      toast.error('O Email deve ser válido');
-    }
-
     if (password.length < 6 || password.length > 50) {
-      formErrors = 1;
+      formErrors++;
       toast.error('A Senha deve ter entre 6 e 50 caracteres');
     }
 
     if (formErrors) return;
 
-    dispatch(actions.registerRequest({ name, email, password, id: id }));
+    dispatch(actions.registerRequest({ name, password, id: id }));
   };
 
   return (
     <Container>
-      <Title>Registre sua conta</Title>
+      <Title>Edite sua conta</Title>
       <Loading isLoading={isLoading} />
       <Form onSubmit={handleSubmit}>
         <Label htmlFor='nomeUser'>Nome de Usuário</Label>
@@ -71,14 +59,6 @@ const Register = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <Label htmlFor='emailUser'>Email</Label>
-        <Input
-          id='emailUser'
-          placeholder='Email'
-          type='text'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
         <Label htmlFor='passwordUser'>Senha</Label>
         <Input
           id='passwordUser'
@@ -87,10 +67,10 @@ const Register = () => {
           value={password}
           onChange={(e) => setSenha(e.target.value)}
         />
-        <Button type='submit'>Criar Conta</Button>
+        <Button type='submit'>Editar Conta</Button>
       </Form>
     </Container>
   );
 };
 
-export default Register;
+export default EditUser;

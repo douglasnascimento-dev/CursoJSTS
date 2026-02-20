@@ -6,9 +6,14 @@ import { isEmail } from 'validator';
 
 import Loading from '../../components/Loading';
 import * as actions from '../../store/modules/auth/actions';
-import { Container, Title } from '../../styles/GlobalStyles';
-
-import { Form } from './styled';
+import {
+  Container,
+  Title,
+  Form,
+  Label,
+  Input,
+  Button,
+} from '../../styles/GlobalStyles';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -55,26 +60,26 @@ const Login = () => {
       <Title>Login</Title>
       <Loading isLoading={isLoading} />
       <Form onSubmit={handleSubmit}>
-        <label htmlFor='emailUser'>Email</label>
-        <input
+        <Label htmlFor='emailUser'>Email</Label>
+        <Input
           id='emailUser'
-          placeholder='Email'
+          placeholder='email@exemplo.com'
           type='text'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label htmlFor='passwordUser'>Senha</label>
-        <input
+        <Label htmlFor='passwordUser'>Senha</Label>
+        <Input
           autoComplete='current-password'
           id='passwordUser'
-          placeholder='Senha'
+          placeholder='****'
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button disabled={isLoading} type='submit'>
+        <Button disabled={isLoading} type='submit'>
           {isLoading ? 'Carregando...' : 'Fazer Login'}
-        </button>
+        </Button>
       </Form>
     </Container>
   );

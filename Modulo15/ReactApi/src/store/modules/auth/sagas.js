@@ -28,17 +28,8 @@ function* registerRequest({ payload }) {
 
   try {
     if (id) {
-      // eslint-disable-next-line no-console
-      console.log(
-        'Enviando requisição PUT com os seguintes headers:',
-        axios.defaults.headers.Authorization,
-        id,
-        name,
-        email,
-        password,
-      );
       yield call(axios.put, '/users', {
-        email,
+        id,
         name,
         password: password || undefined,
       });
@@ -70,7 +61,7 @@ function* registerRequest({ payload }) {
     } else if (typeof errors === 'string') {
       toast.error(errors);
     } else {
-      toast.error('Erro desconhecido');
+      console.error(errors);
     }
 
     yield put(actions.registerFailure());
