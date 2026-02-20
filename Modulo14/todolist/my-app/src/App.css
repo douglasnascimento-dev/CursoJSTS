@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    font-family: Outfit;
+    background: linear-gradient(to bottom, #9796ca, #c899df);
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+}

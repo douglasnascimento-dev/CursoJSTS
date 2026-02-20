@@ -1,0 +1,53 @@
+:root {
+  --primary-color: rgb(159, 115, 216);
+  --primary-color-darker: rgb(40, 19, 78);
+}
+
+* {
+  box-sizing: border-box;
+  outline: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--primary-color);
+  font-family: "Paris2024-Variable", sans-serif;
+}
+
+.container {
+  margin: 50px 10vw;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+form input,
+form label,
+form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+form input {
+  padding: 10px;
+}
+
+form input:focus {
+  outline: 1px solid var(--primary-color);
+}
+
+form button {
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+form button:hover {
+  background: var(--primary-color-darker);
+}

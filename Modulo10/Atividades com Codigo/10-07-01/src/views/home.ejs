@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tarefas</title>
+</head>
+<body>
+    <div class="container">
+    <h1>Lista de Tarefas</h1>
+        <% if (tasks.length > 0) { %>
+            <ul>
+                <% tasks.forEach(task => { %>
+                    <li><%= `${task.title} | ${task.description}` %></li>
+                <% }); %>  
+            </ul>
+        <% } else { %>
+            <p>Não há tarefas disponíveis.</p>
+        <% } %>  
+    </div>
+    <script src="assets/js/bundle.js"></script>
+</body>
+</html>
