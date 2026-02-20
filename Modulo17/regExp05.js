@@ -16,7 +16,7 @@ const { alfabeto } = require('./base.js')
 */
 const regExp06 = /[abc]/g
 const regExp07 = /[abc]+/g
-const regExp08 = /[^abc]+/g
+const regExp08 = /[^abc]/g
 
 const regExp09 = /[0-9]/g
 const regExp10 = /[0-9]+/g
@@ -27,10 +27,10 @@ const regExp14 = /[\u00A0-\u00BA]+/g
 
 
 console.log(alfabeto)
-/* console.log(alfabeto.match(regExp06))
+/*  console.log(alfabeto.match(regExp06))
 console.log(alfabeto.match(regExp07))
-console.log(alfabeto.match(regExp08))
-console.log(alfabeto.match(regExp09)) 
+*/ console.log(alfabeto.match(regExp08))
+/* console.log(alfabeto.match(regExp09)) 
 console.log(alfabeto.match(regExp10))
 console.log(alfabeto.match(regExp11))
 console.log(alfabeto.match(regExp12))

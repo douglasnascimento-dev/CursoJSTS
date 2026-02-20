@@ -16,3 +16,4 @@ for(const arquivo of arquivos) {
   {n, m} | minímo, máximo vezes - { , 1} / {1, } / {1} / {1, 20}0,0
 
 */
+
