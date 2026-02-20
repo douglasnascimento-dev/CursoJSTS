@@ -1,23 +1,20 @@
-// Arquivo: PrivateRoute.jsx
 import PropTypes from 'prop-types';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ isClosed }) => {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const location = useLocation();
 
   if (isClosed && !isLoggedIn) {
-    return <Navigate replace to='/login' />;
+    return <Navigate replace state={{ from: location }} to='/login' />;
   }
 
   return <Outlet />;
 };
 
-PrivateRoute.defaultProps = {
-  isClosed: false,
-};
-
 PrivateRoute.propTypes = {
-  isClosed: PropTypes.bool,
+  isClosed: PropTypes.bool.isRequired,
 };
 
 export default PrivateRoute;

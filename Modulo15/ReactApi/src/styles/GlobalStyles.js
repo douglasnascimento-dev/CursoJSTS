@@ -40,6 +40,7 @@ a {
 ul {
   list-style: none;
 }
+
 .Toastify__toast-container .Toastify__toast--success, 
 .Toastify__toast--error {
   border-radius: 6px;
@@ -68,4 +69,60 @@ export const Title = styled.h1`
   text-align: center;
   font-weight: bold;
   padding-bottom: 10px;
+`;
+
+export const Form = styled.form`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 20px 0;
+  background-color: ${colors.secondColor};
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 20px;
+
+  label {
+    font-weight: bold;
+    display: grid; 
+    grid-template-columns: 1fr 3.5fr;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+     }
+
+  input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 5px 10px;
+
+    &:hover {
+      border-color: ${colors.primaryColor};
+    }
+    &:active {
+      border-color: ${colors.primaryColor};
+    }
+    &:focus {
+      border-color: ${colors.primaryColor};
+      outline: none;
+    }
+  }
+
+  button {
+    padding: 10px;
+    background-color: ${colors.primaryColor};
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    font-size: 16px;
+    width: 20%;
+    &:hover {
+      background-color: ${colors.primaryDarkColor};
+    }
+  }
 `;
