@@ -17,7 +17,7 @@ const App = () => {
           <Header />
           <AppRoutes />
           <GlobalStyles />
-          <ToastContainer autoClose={3000} className={'toast-container'} />
+          <ToastContainer autoClose={2000} className={'toast-container'} />
         </HistoryRouter>
       </PersistGate>
     </Provider>

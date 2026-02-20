@@ -83,14 +83,14 @@ export const Form = styled.form`
 
   label {
     font-weight: bold;
-    display: grid; 
+    display: grid;
     grid-template-columns: 1fr 3.5fr;
     align-items: center;
     justify-content: space-between;
     text-align: right;
-     }
+  }
 
-  input {
+  input { 
     padding: 10px;
     width: 100%;
     border: 1px solid #ccc;
@@ -110,8 +110,34 @@ export const Form = styled.form`
     }
   }
 
+  input[type='file'] {
+    padding: 0;
+    border: none;
+    background: transparent;
+    width: 500px;
+  }
+    
+    input[type='file']::file-selector-button {
+      width: 200px;
+      font-family: 'Overpass', sans-serif;
+      padding: 10px 5px;
+      background-color: ${colors.primaryColor};
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      margin: 0 10px 0 0;
+
+      &:hover {
+        background-color: ${colors.primaryDarkColor}; /* Adicionado para consistência */
+      }
+    }
+  }
+
   button {
-    padding: 10px;
+    padding: 10px 35px;
     background-color: ${colors.primaryColor};
     color: white;
     border: none;
@@ -120,7 +146,8 @@ export const Form = styled.form`
     transition: background-color 0.3s ease;
     margin-top: 10px;
     font-size: 16px;
-    width: 20%;
+    width: min-content;
+    white-space: nowrap;
     &:hover {
       background-color: ${colors.primaryDarkColor};
     }

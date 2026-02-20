@@ -1,4 +1,3 @@
-// SEU CÓDIGO - JÁ ESTÁ CORRETO COM O NOVO PrivateRoute
 import { Routes, Route, Outlet } from 'react-router-dom';
 
 import Aluno from '../pages/Aluno';
@@ -10,7 +9,7 @@ import Register from '../pages/Register';
 
 import PrivateRoute from './PrivateRoute';
 
-const AdminLayout = () => <Outlet />; // Perfeito para layouts
+const AdminLayout = () => <Outlet />;
 
 const AppRoutes = () => {
   return (
