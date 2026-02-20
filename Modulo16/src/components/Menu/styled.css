@@ -1,0 +1,23 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #eee;
+  gap: 1em;
+  font-family: 'Outfit', sans-serif;
+}
+
+a {
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  color: royalblue;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+a:hover {
+  background-color: #eee;
+}
